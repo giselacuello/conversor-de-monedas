@@ -1,10 +1,16 @@
+package com.gisela.coversorDeMonedas.app;
+
+import com.gisela.coversorDeMonedas.menu.Menu;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Principal {
-    public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        Menu menu = new Menu();
+public class Aplicacion {
+
+    Scanner teclado = new Scanner(System.in);
+    Menu menu = new Menu(teclado);
+
+    public void ejecutar() {
         boolean salir = false;
         int opcion;
 
@@ -30,16 +36,14 @@ public class Principal {
                 if (opcion == 7) {
                     System.out.println("Gracias por usar el conversor");
                     salir = true;
-                } else if (opcion >=1 && opcion <= 6) {
+                } else if (opcion >= 1 && opcion <= 6) {
                     menu.procesarOpcion(opcion);
                 } else {
                     System.out.println("Opción inválida. Por favor, elija una opcion del 1 al 7.");
                 }
-            } catch(InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Error: Por favor ingrese un número válido.");
-                teclado.next();
             }
         }
-
     }
 }

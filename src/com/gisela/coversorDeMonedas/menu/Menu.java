@@ -1,13 +1,27 @@
+package com.gisela.coversorDeMonedas.menu;
+
+import com.gisela.coversorDeMonedas.modelo.ConversorMoneda;
+import com.gisela.coversorDeMonedas.modelo.ExchangeRateResponse;
+import com.gisela.coversorDeMonedas.servicio.ConsultaMonedaApi;
+import com.gisela.coversorDeMonedas.util.ConversorJson;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
+    private Scanner teclado;
+
+    public Menu(Scanner teclado) {
+        this.teclado = teclado;
+    }
+
     public void procesarOpcion(int opcion) {
-        Scanner teclado = new Scanner(System.in);
         double cantidad = 0.0;
         String monedaOrigen = "";
         String monedaDestino = "";
+
+
 
         switch (opcion) {
             case 1:
@@ -55,6 +69,7 @@ public class Menu {
         //para manejar una entrada que no sea un valor numérico
         try {
             cantidad = teclado.nextDouble();
+            teclado.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Error: Por favor ingrese un monto válido.");
             teclado.next();
@@ -64,7 +79,7 @@ public class Menu {
             //obtener la respuesta json
             String jsonRespuesta = ConsultaMonedaApi.obtenerMonedas(monedaOrigen);
 
-            //convertir la respuesta JSON a un objeto ExchangeRateResponse usandola clase ConversorJson
+            //convertir la respuesta JSON a un objeto com.gisela.coversorDeMonedas.modelo.ExchangeRateResponse usandola clase com.gisela.coversorDeMonedas.util.ConversorJson
             ExchangeRateResponse exchangeRateResponse = ConversorJson.convertirDesdeJson(jsonRespuesta);
 
             // Validar si la respuesta o las tasas de cambio son nulas

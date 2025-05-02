@@ -1,3 +1,5 @@
+package com.gisela.coversorDeMonedas.modelo;
+
 public class ConversorMoneda {
     public static double convertirMoneda(double monto, String monedaDestino, ExchangeRateResponse exchangeRateResponse) {
         //obtener la tasa de cambio de la moneda destino

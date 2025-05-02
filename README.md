@@ -30,7 +30,7 @@ Las tasas de cambio se obtienen desde la API pública [ExchangeRate-API](https:/
 1. Clonar o descargar el repositorio
 2. Abrir el proyecto en IntelliJ u otro IDE compatible
 3. Asegurarse de que la librería Gson esté incluida en las dependencias
-4. Ejecutar la clase `Principal.java`
+4. Ejecutar la clase `com.gisela.coversorDeMonedas.app.Aplicacion.java`
 
 ## Ejemplo de uso
 
