@@ -25,6 +25,13 @@ Las tasas de cambio se obtienen desde la API pública [ExchangeRate-API](https:/
 - Tener [IntelliJ IDEA](https://www.jetbrains.com/idea/) o cualquier otro IDE Java
 - Agregar la biblioteca **Gson** (puede instalarse desde Maven Central o agregando manualmente el `.jar`)
 
+## Configuración
+
+Para que la aplicación funcione correctamente, es necesario crear un archivo `config.properties` en la raíz del proyecto con el siguiente contenido:
+API_KEY=tu_clave_api_aqui
+
+Este archivo está ignorado por Git (por seguridad), por lo tanto, no se encuentra en el repositorio. Recuerda reemplazar `tu_clave_api_aqui` por la clave real que obtuviste al registrarte en [ExchangeRate-API](https://www.exchangerate-api.com/).
+
 ## Ejecución
 
 1. Clonar o descargar el repositorio
