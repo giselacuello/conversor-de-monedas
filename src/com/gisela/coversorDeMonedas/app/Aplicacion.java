@@ -1,8 +1,7 @@
 package com.gisela.coversorDeMonedas.app;
 
-import com.gisela.coversorDeMonedas.menu.Menu;
+import com.gisela.coversorDeMonedas.vista.Menu;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Aplicacion {

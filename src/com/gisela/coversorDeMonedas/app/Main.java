@@ -1,8 +1,6 @@
-package com.gisela.coversorDeMonedas.principal;
+package com.gisela.coversorDeMonedas.app;
 
-import com.gisela.coversorDeMonedas.app.Aplicacion;
-
-public class Principal {
+public class Main {
     public static void main(String[] args) {
         Aplicacion aplicacion = new Aplicacion();
         aplicacion.ejecutar();

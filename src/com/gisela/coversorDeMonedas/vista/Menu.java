@@ -1,4 +1,4 @@
-package com.gisela.coversorDeMonedas.menu;
+package com.gisela.coversorDeMonedas.vista;
 
 import com.gisela.coversorDeMonedas.modelo.ConversorMoneda;
 import com.gisela.coversorDeMonedas.modelo.ExchangeRateResponse;
