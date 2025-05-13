@@ -7,6 +7,7 @@ import com.gisela.coversorDeMonedas.util.ConversorJson;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -62,8 +63,34 @@ public class Menu {
                 monedaOrigen = "COP";
                 monedaDestino = "USD";
                 break;
+            case 7:
+                System.out.println("Conversión libre");
+                monedaOrigen = "USD";
+                try {
+                    ExchangeRateResponse exchangeRateResponse = obtenerTasas(monedaOrigen);
+                    //mostrar monedas disponibles
+                    Map<String, Double> tasas = exchangeRateResponse.conversion_rates();
+                    System.out.println("Monedas disponibles");
+                    for (String monedas : tasas.keySet()) {
+                        System.out.println(monedas);
+                    }
+                    System.out.println();
+
+                    //pedir moneda origen
+                    System.out.println("Ingrese la moneda de origen ");
+                    monedaOrigen = teclado.nextLine().toUpperCase();
+
+                    //pedir moneda destino
+                    System.out.println("Ingrese la moneda a la que desea realizar la conversión");
+                    monedaDestino = teclado.nextLine().toUpperCase();
+
+                } catch (IOException | InterruptedException e) {
+                    System.out.println("Error al obtener monedas " + e.getMessage());
+                }
+                System.out.println("Elija la moneda de origen de la siguiente lista");
+
             default:
-                System.out.println("Opción inválida. Por favor, elija una opción del 1 al 7.");
+                System.out.println("Opción inválida. Por favor, elija una opción del 1 al 8.");
                 break;
         }
         //para manejar una entrada que no sea un valor numérico
@@ -72,22 +99,17 @@ public class Menu {
             teclado.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Error: Por favor ingrese un monto válido.");
-            teclado.next();
+            teclado.nextLine();
             return;
         }
+
         try {
-            //obtener la respuesta json
-            String jsonRespuesta = ConsultaMonedaApi.obtenerMonedas(monedaOrigen);
-
-            //convertir la respuesta JSON a un objeto com.gisela.coversorDeMonedas.modelo.ExchangeRateResponse usandola clase com.gisela.coversorDeMonedas.util.ConversorJson
-            ExchangeRateResponse exchangeRateResponse = ConversorJson.convertirDesdeJson(jsonRespuesta);
-
+            ExchangeRateResponse exchangeRateResponse = obtenerTasas(monedaOrigen);
             // Validar si la respuesta o las tasas de cambio son nulas
             if (exchangeRateResponse == null || exchangeRateResponse.conversion_rates() == null) {
                 System.out.println("Error: No se pudo obtener la información de tasas de cambio.");
                 return; //sale del metodo procesaroOpcion
             }
-
             //Llamar al conversor de monedas con la cantidad y la moneda de destino
             double resultado = ConversorMoneda.convertirMoneda(cantidad, monedaDestino, exchangeRateResponse);
 
@@ -97,5 +119,13 @@ public class Menu {
         } catch (IOException | InterruptedException e) {
             System.out.println("Error en la consulta " + e.getMessage());
         }
+    }
+    private static ExchangeRateResponse obtenerTasas(String moneda) throws IOException, InterruptedException {
+        //obtener la respuesta json
+        String jsonRespuesta = ConsultaMonedaApi.obtenerMonedas(moneda);
+
+        //retorna conversión de la respuesta JSON a un objeto
+        return ConversorJson.convertirDesdeJson(jsonRespuesta);
+
     }
 }
